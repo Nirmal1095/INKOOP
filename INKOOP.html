@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>INKOOP</title>
+   
+    <style>
+        body {
+            background-color:blue;
+        }
+        #count{
+            font-size:30px; 
+        }
+        button {
+            padding: 10px;
+            border-radius:5px;
+            background-color:white;
+        }
+
+        </Style>
+</head>
+<body>
+    
+  <h1>
+   You have  <span>1000 </span> INR
+  </h1>
+  <button id="button">Start</button><br>
+  <span id="count"></span>
+  <h2 id="nir">You were not lucky this time</h2>
+  <script>
+  $button = document.querySelector('button');
+  $span = document.querySelector('span');
+  function decrement(){
+      if($span.innerHTML>=100){
+    
+      var n1 = generateRandomNumber();
+      var n2 = generateRandomNumber();
+      var n3 = generateRandomNumber();
+      document.getElementById("count").innerHTML=n1+" "+n2+" "+n3;
+      
+      var num = 0;
+      if( allSame(n1,n2,n3)){
+        document.getElementById("nir").innerHTML="User gets 1000 INR";
+        $span.innerHTML=parseInt($span.innerHTML)+900;
+      } else if( sequence(n1,n2,n3)){
+        document.getElementById("nir").innerHTML="User gets 800 INR";
+        $span.innerHTML=parseInt($span.innerHTML)+700;
+      } else if(allOddEven(n1,n2,n3)){
+    
+        document.getElementById("nir").innerHTML="User gets 300 INR";
+        $span.innerHTML=parseInt($span.innerHTML)+200;
+      }else{
+        document.getElementById("nir").innerHTML="User gets no money";
+        $span.innerHTML=parseInt($span.innerHTML)-100;
+      }
+      } else {
+           document.getElementById("button").innerHTML="Game Over";
+      }
+  }
+  $button.addEventListener('click',decrement);
+  var generateRandomNumber = function(){
+      return Math.floor(Math.random()*10);
+  }
+  var allOddEven = function(n1, n2, n3){
+    var n1TF;
+    if((n1%2)===0){
+        n1TF = true;
+    } else {
+        n1TF = false;
+    }
+     var n2TF;
+     if((n2%2)===0){
+        n2TF = true;
+    } else {
+        n2TF = false;
+    }
+    var n3TF;
+     if((n3%2)===0){
+        n3TF = true;
+    } else {
+        n3TF = false;
+    }
+    return n3TF===n1TF && n1TF===n2TF;
+  }
+
+  var sequence = function(n1,n2,n3){
+    var seq = [n1,n2,n3];
+    seq.sort(function(a, b){return a - b});
+    return seq[0]+1===seq[1] && seq[1]+1===seq[2];
+  }
+  var allSame = function(n1,n2,n3){
+      return n1===n2 && n2==n3;
+  }
+  </script>
+</body>
+</html>
